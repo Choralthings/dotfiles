@@ -24,10 +24,15 @@ alias dot='cd ~/.dotfiles && vim'
 alias today='date +%Y-%m-%d --utc | tr -d \\n'
 alias now='date +%Y-%m-%dT%H:%M:%S --utc | tr -d \\n'
 
+alias add_timestamp='while read line; do echo "$(date +%Y-%m-%dT%H:%M:%S.$( date +%N | sed 's/......$//' ) --utc) $line"; done'
+
 # Create new tmp directory and cd into it
 # Dir name is current UTC time, without special characters as : to be
 # compatible with PATH env var (so you can add this tmp directory to PATH)
 alias DD='D ~/tmp/$(date +%Y%m%dT%H%M%S --utc | tr -d \\n)'
+
+# Change directory to last created directory in tmp
+alias last_tmp='cd ~/tmp/$( ls -t ~/tmp | head -1 )'
 
 # Generate strong password and copy to clipboard
 genpassword() {
@@ -50,11 +55,8 @@ alias du='du -sh'
 alias mutt="neomutt"
 alias E="neomutt"
 
-# List and grep
-alias lsg='ll | grep'
-
-# List last files
-lslast() { ls -t $@ | head; }
+# exa instead of classi ls
+lslast() { exa --sort created --reverse --color always $@ | head ; }
 
 # Brutally kill
 alias ka9='killall -9'
@@ -64,6 +66,9 @@ highlight() { grep --color -E "$1|\$"; }
 
 # I don't use dc, and sometime i mispell cd
 alias dc='cd'
+
+# Disable screensaver and screen energy saving (e.g.: during a speech)
+alias noscreensaver='xset -dpms s off'
 
 ## fuzzy find password with `pass` password manager
 ## See
@@ -78,7 +83,7 @@ Pass() {
 # Watch a file for changes and run something after is is changed
 # Example
 #     watch_do myprogram.hs 'ghc myprogram.hs -o myprogram && ./myprogram'
-watch_do() { while true; do eval "${2}"; inotifywait --recursive --event modify "${1}" -q; clear; done; }
+watch_do() { while true; do eval "${2}"; inotifywait --exclude '@neomake' --recursive --event modify "${1}" -q; clear; done; }
 
 ## Docker {{{
 
@@ -295,6 +300,7 @@ governor() {
 backup_tar() { tar cpvf "${1}~$( date +%Y%m%d-%H%M%S ).tar" "${1}"; }
 backup_cp() { cp -a "${1}" "${1}~$( date +%Y%m%d-%H%M%S )~"; }
 backup_mv() { mv "${1}" "${1}~$( date +%Y%m%d-%H%M%S )~"; }
+zipr() { zip "${1}.zip" "${1}" -r; }
 ## }}}
 
 ################################################################################

@@ -178,7 +178,7 @@ mode $background_mode  {
 # Wind+Shift+L shows a menu with office lights
 ###############################################################################
 
-set $lights_mode "select monitors layout  [w] window [d] desktop [r] relax [a] all on [o] all off"
+set $lights_mode "select lights layout  [w] window [d] desktop [r] relax [a] all on [o] all off"
 bindsym $mod+Shift+o mode $lights_mode
 
 mode $lights_mode  {
@@ -211,22 +211,24 @@ mode $resize_mode {
   bindsym Escape mode "default"
 }
 
-bindsym --release Print exec scrot -e 'mv $f ~/Pictures/'
-bindsym --release Shift+Print exec scrot -s -e 'mv $f ~/Pictures/'
+###############################################################################
+# Screenshots
+###############################################################################
+bindsym --release Print exec flameshot gui -p ~/Pictures
 
 ###############################################################################
 # Workspaces
 ###############################################################################
 
-set $workspace_1 "1 Main"
-set $workspace_2 "2 Browser"
-set $workspace_3 "3 Test"
+set $workspace_1 "1 "
+set $workspace_2 "2 "
+set $workspace_3 "3"
 set $workspace_4 "4"
 set $workspace_5 "5"
 set $workspace_6 "6"
 set $workspace_7 "7"
-set $workspace_8 "8"
-set $workspace_9 "9 "
+set $workspace_8 "8 "
+set $workspace_9 "9 "
 
 # switch to workspace
 bindsym $mod+1 workspace $workspace_1
@@ -252,12 +254,6 @@ bindsym $mod+Shift+9 move container to workspace $workspace_9
 
 # Automatic back-and-forth when switching to the current workspace
 workspace_auto_back_and_forth yes
-
-# Spotify
-# This is not working: `assign [class="^Spotify$"] $workspace_9`
-# fix: https://community.spotify.com/t5/Help-Desktop-Linux-Windows-Web/WM-CLASS-window-property-on-Linux/td-p/1247042
-for_window [class="Spotify"] move to workspace $workspace_9
-
 
 ###############################################################################
 # Bar
@@ -319,10 +315,9 @@ bindcode 233 exec --no-startup-id ~/.dotfiles/i3/bin/brightness +
 bindcode 232 exec --no-startup-id ~/.dotfiles/i3/bin/brightness -
 
 # Audio volume up/down (PulseAudio)
-set $sink_index 0
-bindsym XF86AudioRaiseVolume exec --no-startup-id "pactl set-sink-volume $sink_index +5%; mplayer /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga"
-bindsym XF86AudioLowerVolume exec --no-startup-id "pactl set-sink-volume $sink_index -5%; mplayer /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga"
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-volume $sink_index 0%
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl -- set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl -- set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute        exec --no-startup-id pactl -- set-sink-volume @DEFAULT_SINK@ 0%
 
 # Spotify
 bindsym XF86AudioPrev exec --no-startup-id ~/.dotfiles/i3/bin/spotify-control prev
@@ -354,11 +349,8 @@ bindsym $mod+e exec $filemanager
 bindsym $mod+i exec --no-startup-id ~/.dotfiles/i3/bin/myip-notify
 
 ###############################################################################
-# Startup
+# Fonts
 ###############################################################################
-
-exec --no-startup-id ~/.dotfiles/wm/bin/startup
-
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
 font pango:Droid Sans 11
@@ -368,7 +360,9 @@ client.focused_inactive   $dark0_hard      $dark0_hard      $gray_245    $dark0
 client.unfocused          $dark0_soft      $dark0_soft      $gray_245    $dark0
 client.urgent             $neutral_red     $neutral_red     $light1      $dark0
 
-# gaps
+###############################################################################
+# Gaps
+###############################################################################
 gaps inner 12
 gaps outer 8
 new_window pixel 2
@@ -376,30 +370,30 @@ new_float pixel 2
 smart_gaps on
 hide_edge_borders smart
 
+###############################################################################
+# Special windows
+###############################################################################
 for_window [class="Pavucontrol"] floating enable, border normal
 for_window [class="copyq"] floating enable
 for_window [class="Arandr"] floating enable
 for_window [class="Pinentry-gtk-2"] floating enable
 for_window [class="rdesktop"] floating disable
+for_window [class="VirtualBox"] floating enable
 
-# FIXME this should go in a config.local file >>>
+assign [class="rdesktop"] $workspace_7
+assign [class="Thunderbird"] $workspace_8
+assign [class="Chromium"] $workspace_2
+
+# FIXME Personal projects, these lines should go in a config.local file >>>
 for_window [class="ESA Universal"] floating enable
-for_window [class="QtQmlViewer"] floating enable
-for_window [class="UGIS"] floating enable
-for_window [class="Bmet Manager"] floating enable
-for_window [class="VirtualBox"] fullscreen enable
-
 for_window [class="ESA Universal"] resize set 1024 600
-
 assign [class="ESA Universal"] $workspace_3
 assign [class="QtQmlViewer"] $workspace_3
-assign [class="UGIS"] $workspace_3
-assign [class="UgisTest"] $workspace_8
 assign [class="MyHome"] $workspace_3
-assign [class="MosQtitto"] $workspace_3
-assign [class="Bmet Manager"] $workspace_3
-assign [class="VirtualBox"] $workspace_7
-assign [class="rdesktop"] $workspace_7
 # <<< FIXME
 
+###############################################################################
+# Startup
+###############################################################################
+exec --no-startup-id ~/.dotfiles/wm/bin/startup
 exec --no-startup-id compton --config ~/.dotfiles/wm/compton.conf -b

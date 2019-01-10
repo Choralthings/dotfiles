@@ -1,21 +1,52 @@
-" Disable haskell-vim omnifunc
-" https://github.com/eagletmt/neco-ghc
-let g:haskellmode_completion_ghc = 0
-autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
-
-" necoghc should work with YouCompleteMe. To enable auto-completions:
-let g:ycm_semantic_triggers = {'haskell' : ['.']}
-
-" To hook into GHC’s code competion capabilities we map several keyboard
-" commands to ghc-mod functions. See http://www.stephendiehl.com/posts/vim_2016.html
-nnoremap <silent> <leader>hw :GhcModTypeInsert<CR>
-nnoremap <silent> <leader>hs :GhcModSplitFunCase<CR>
-nnoremap <silent> <leader>hq :GhcModType<CR>
-nnoremap <silent> <leader>he :GhcModTypeClear<CR>
-
-let g:haskell_tabular = 1
-
-" Good for haskell, but also for cpp
+"" Good for haskell, but also for cpp
 vmap a= :Tabularize /=<CR>
 vmap a; :Tabularize /::<CR>
 vmap a- :Tabularize /-><CR>
+
+" Align 'then' two spaces after 'if'
+let g:haskell_indent_if = 2
+" Indent 'where' block two spaces under previous body
+let g:haskell_indent_before_where = 2
+" Allow a second case indent style (see haskell-vim README)
+let g:haskell_indent_case_alternative = 1
+" Only next under 'let' if there's an equals sign
+let g:haskell_indent_let_no_in = 0
+
+" Indenting on save is too aggressive for me
+let g:hindent_on_save = 0
+
+" Helper function, called below with mappings
+function! HaskellFormat(which) abort
+  if a:which ==# 'hindent' || a:which ==# 'both'
+    :Hindent
+  endif
+  if a:which ==# 'stylish' || a:which ==# 'both'
+    silent! exe 'undojoin'
+    silent! exe 'keepjumps %!stylish-haskell'
+  endif
+endfunction
+
+augroup haskellStylish
+  au!
+  " Just hindent
+  au FileType haskell nnoremap <leader>af :Hindent<CR>
+  " Just stylish-haskell
+  au FileType haskell nnoremap <leader>ag :call HaskellFormat('stylish')<CR>
+  " First hindent, then stylish-haskell
+  au FileType haskell nnoremap <leader>agg :call HaskellFormat('both')<CR>
+augroup END
+
+augroup hdevtools
+  au!
+  au FileType haskell nnoremap <leader>yt :HdevtoolsType<CR>
+  au FileType haskell nnoremap <leader>yi :HdevtoolsInfo<CR>
+  au FileType haskell nnoremap <leader>yc :HdevtoolsClear<CR>
+augroup END
+
+let g:ycm_semantic_triggers = {'haskell' : ['.']}
+let g:necoghc_use_stack = 1
+
+augroup necoghc
+  au!
+  autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+augroup END

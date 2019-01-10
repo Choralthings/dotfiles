@@ -44,7 +44,7 @@ fi
 ## Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 plugins=(
   adb
-  archlinux
+  fedora
   common-aliases
   dirhistory
   docker

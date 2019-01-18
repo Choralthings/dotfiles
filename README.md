@@ -1,11 +1,11 @@
-# Alessandro Pezzato dotfiles
+# Alessandro Zappia dotfiles
 
 ## Setup
 
 Clone this repository in `~/.dotfiles` (your home directory).
 
 ```sh
-git clone https://github.com/alepez/dotfiles.git ~/.dotfiles
+git clone https://github.com/alezap/dotfiles.git ~/.dotfiles
 ```
 
 Choose what you need:

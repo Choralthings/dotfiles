@@ -2,7 +2,7 @@
 
 wallpaper="${HOME}/.wallpaper"
 
-list_all() { find "${HOME}/Pictures/wallpapers"; }
+list_all() { find "${HOME}/Pictures/Wallpapers"; }
 
 get_neighbours() { list_all | grep $( realpath ${wallpaper} ) -C1; }
 

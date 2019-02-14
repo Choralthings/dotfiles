@@ -283,11 +283,12 @@ bindsym $mod+c exec --no-startup-id $terminal
 bindsym Control+Mod1+l exec --no-startup-id "i3lock --24 -c '#282828' -o '#fb4934' -w '#83a598' --ignore-empty-password -i ~/.wallpaper"
 
 # Browser
-set $browser "chromium --proxy-server=localhost:8118"
-set $private_browser "chromium --proxy-server=localhost:8118 --incognito"
+#set $browser "chromium --proxy-server=localhost:8118"
+#set $private_browser "chromium --proxy-server=localhost:8118 --incognito"
+set $browser "firefox"
 # Start anywhere
 bindsym $mod+b exec --no-startup-id $browser
-bindsym $mod+Shift+b exec --no-startup-id $private_browser
+#bindsym $mod+Shift+b exec --no-startup-id $private_browser
 # Go to browser workspace and start a browser
 bindsym $mod+Mod1+b exec --no-startup-id "i3-msg \"workspace $workspace_2; exec $browser\""
 

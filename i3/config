@@ -322,7 +322,7 @@ bindsym $mod+Shift+c exec --no-startup-id ~/.dotfiles/wm/bin/common-clip-dmenu
 bindsym $mod+Shift+v exec --no-startup-id gpaste-client ui
 
 # Open filemanager
-set $filemanager "thunar"
+set $filemanager "nautilus"
 bindsym $mod+e exec $filemanager
 
 # Show ip address
@@ -362,7 +362,8 @@ for_window [class="VirtualBox"] floating enable
 
 assign [class="rdesktop"] $workspace_7
 assign [class="Thunderbird"] $workspace_8
-assign [class="Chromium"] $workspace_2
+assign [class="Firefox"] $workspace_2
+assign [class="Eclipse"] $workspace_6
 
 # FIXME Personal projects, these lines should go in a config.local file >>>
 for_window [class="ESA Universal"] floating enable

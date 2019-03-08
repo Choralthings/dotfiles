@@ -29,16 +29,14 @@ nm-applet &>/dev/null </dev/null &
 # Mouse bindings
 xbindkeys &>/dev/null </dev/null &
 
+# Setup second monitor if VGA is connected
+xrandr | grep 'VGA-1 connected' && xrandr --output VGA-1 --primary --mode 1920x1080 --left-of LVDS-1
+
 # Random wallpaper
 ~/.dotfiles/wm/bin/change-background  &>/dev/null </dev/null &
 
 # Clipboard manager (gpaste)
 ( sleep 5 && gpaste-client start &>/dev/null </dev/null & ) &>/dev/null </dev/null &
-
-# Setup second monitor if HDM1 is connected (two variants, different xrandr versions
-# give different output identifier (HDM1 and HDMI-1)
-xrandr | grep 'HDMI1 connected' && xrandr --output HDMI1 --mode 1920x1080  --left-of eDP1
-xrandr | grep 'HDMI-1 connected' && xrandr --output HDMI-1 --mode 1920x1080  --left-of eDP1
 
 xss-lock -- i3lock --24 -c '#282828' -o '#fb4934' -w '#83a598' --ignore-empty-password -i ~/.wallpaper &
 

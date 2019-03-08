@@ -108,6 +108,7 @@ bindsym $mod+Shift+i exec --no-startup-id xcalib -i -a
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
 bindsym $mod+t layout tabbed
+bindsym $mod+d layout splith
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
@@ -141,13 +142,13 @@ mode $exit_mode {
 # Wind+Shift+S shows a menu with layout options
 ###############################################################################
 
-set $monitors_mode "select monitors layout  [a] arandr [h] hdmi+laptop [r] right vga+laptop [l] left vga+lapton [m] mirror"
+set $monitors_mode "select monitors layout  [a] arandr [o] only laptop [r] right vga+laptop [l] left vga+lapton [m] mirror"
 bindsym $mod+Shift+s mode $monitors_mode
 
 # Note: both HDMI-1 and HDMI1 because different versions xrandr gives different names
 mode $monitors_mode  {
   bindsym a exec --no-startup-id "arandr; i3-msg mode default"
-  bindsym h exec --no-startup-id "xrandr --output HDMI-1 --auto --left-of LVDS-1; i3-msg mode default"
+  bindsym o exec --no-startup-id "xrandr --output LVDS-1 --primary --pos 0x0; i3-msg mode default"
   bindsym r exec --no-startup-id "xrandr --output VGA-1 --auto --right-of LVDS-1; i3-msg mode default"
   bindsym l exec --no-startup-id "xrandr --output VGA-1 --auto --left-of LVDS-1; i3-msg mode default"
   bindsym m exec --no-startup-id "xrandr --output VGA-1 --auto --same-as LVDS-1; i3-msg mode default"
@@ -165,9 +166,26 @@ mode $monitors_mode  {
 set $background_mode "change background  [j] previos [k] next"
 bindsym $mod+Shift+d mode $background_mode
 
-mode $background_mode  {
+mode $background_mode {
   bindsym j exec --no-startup-id "~/.dotfiles/wm/bin/change-background prev"
   bindsym k exec --no-startup-id "~/.dotfiles/wm/bin/change-background next"
+
+  # back to normal: Enter or Escape
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+}
+
+###############################################################################
+# Keyboard Layout
+# # Wind+Shift+L change keyboard layout
+###############################################################################
+
+set $keyboard_layout "change keyboard layout  [i] ita [e] us"
+  bindsym $mod+Mod1+l mode $keyboard_layout
+
+mode $keyboard_layout {
+  bindsym i exec --no-startup-id "setxkbmap -layout it -option 'caps:ctrl_modifier'"
+  bindsym e exec --no-startup-id "setxkbmap -layout it -variant us -option 'caps:ctrl_modifier'"
 
   # back to normal: Enter or Escape
   bindsym Return mode "default"
@@ -202,7 +220,7 @@ bindsym --release Print exec flameshot gui -p ~/Pictures
 ###############################################################################
 
 set $workspace_1 "1 "
-set $workspace_2 "2 "
+set $workspace_2 "2 "
 set $workspace_3 "3"
 set $workspace_4 "4"
 set $workspace_5 "5"

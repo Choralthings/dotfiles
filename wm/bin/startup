@@ -33,12 +33,13 @@ xbindkeys &>/dev/null </dev/null &
 xrandr | grep 'VGA-1 connected' && xrandr --output VGA-1 --primary --mode 1920x1080 --left-of LVDS-1
 
 # Random wallpaper
-~/.dotfiles/wm/bin/change-background  &>/dev/null </dev/null &
+# ~/.dotfiles/wm/bin/change-background  &>/dev/null </dev/null &
+nitrogen --set-zoom-fill --random ~/Pictures/wallpapers &>/dev/null </dev/null &
 
 # Clipboard manager (gpaste)
 ( sleep 5 && gpaste-client start &>/dev/null </dev/null & ) &>/dev/null </dev/null &
 
-xss-lock -- i3lock --24 -c '#282828' -o '#fb4934' -w '#83a598' --ignore-empty-password -i ~/.wallpaper &
+xss-lock -- i3lock -c '#282828' --ignore-empty-password -i ~/.wallpaper &
 
 ) &>/dev/null </dev/null &
 

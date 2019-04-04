@@ -34,7 +34,7 @@ xrandr | grep 'VGA-1 connected' && xrandr --output VGA-1 --primary --mode 1920x1
 
 # Random wallpaper
 # ~/.dotfiles/wm/bin/change-background  &>/dev/null </dev/null &
-nitrogen --set-zoom-fill --random ~/Pictures/wallpapers &>/dev/null </dev/null &
+nitrogen --set-zoom-fill --random ~/Pictures/Wallpapers &>/dev/null </dev/null &
 
 # Clipboard manager (gpaste)
 ( sleep 5 && gpaste-client start &>/dev/null </dev/null & ) &>/dev/null </dev/null &

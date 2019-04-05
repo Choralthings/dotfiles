@@ -29,8 +29,8 @@ nm-applet &>/dev/null </dev/null &
 # Mouse bindings
 xbindkeys &>/dev/null </dev/null &
 
-# Setup second monitor if VGA is connected
-xrandr | grep 'VGA-1 connected' && xrandr --output VGA-1 --primary --mode 1920x1080 --left-of LVDS-1
+# Setup second monitor if HDMI is connected
+xrandr | grep 'DP-2-1 connected' && xrandr --output DP-2-1 --primary --mode 1920x1080 --left-of eDP-1
 
 # Random wallpaper
 # ~/.dotfiles/wm/bin/change-background  &>/dev/null </dev/null &

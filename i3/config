@@ -148,6 +148,10 @@ bindsym $mod+Shift+s mode $monitors_mode
 # Note: both HDMI-1 and HDMI1 because different versions xrandr gives different names
 mode $monitors_mode  {
   bindsym a exec --no-startup-id "arandr; i3-msg mode default"
+  bindsym o exec --no-startup-id "xrandr --output eDP-1 --primary --pos 0x0; i3-msg mode default"
+  bindsym r exec --no-startup-id "xrandr --output DP-2-1 --auto --right-of eDP-1; i3-msg mode default"
+  bindsym l exec --no-startup-id "xrandr --output DP-2-1 --auto --left-of  eDP-1; i3-msg mode default"
+  bindsym m exec --no-startup-id "xrandr --output DP-2-1 --auto --same-as  eDP-1; i3-msg mode default"
   bindsym o exec --no-startup-id "xrandr --output LVDS-1 --primary --pos 0x0; i3-msg mode default"
   bindsym r exec --no-startup-id "xrandr --output VGA-1 --auto --right-of LVDS-1; i3-msg mode default"
   bindsym l exec --no-startup-id "xrandr --output VGA-1 --auto --left-of LVDS-1; i3-msg mode default"

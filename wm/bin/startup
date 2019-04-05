@@ -34,12 +34,13 @@ xrandr | grep 'DP-2-1 connected' && xrandr --output DP-2-1 --primary --mode 1920
 
 # Random wallpaper
 # ~/.dotfiles/wm/bin/change-background  &>/dev/null </dev/null &
-nitrogen --set-zoom-fill --random ~/Pictures/Wallpapers &>/dev/null </dev/null &
+# nitrogen --set-zoom-fill --random ~/Pictures/Wallpapers &>/dev/null </dev/null &
+nitrogen --restore
 
 # Clipboard manager (gpaste)
 ( sleep 5 && gpaste-client start &>/dev/null </dev/null & ) &>/dev/null </dev/null &
 
-xss-lock -- i3lock -c '#282828' --ignore-empty-password -i ~/.wallpaper &
+xss-lock -- ~/.dotfiles/i3/bin/lock &
 
 ) &>/dev/null </dev/null &
 

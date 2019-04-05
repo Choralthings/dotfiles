@@ -1,11 +1,11 @@
-# Alessandro Zappia dotfiles
+# Matteo Bosco dotfiles
 
 ## Setup
 
 Clone this repository in `~/.dotfiles` (your home directory).
 
 ```sh
-git clone https://github.com/alezap/dotfiles.git ~/.dotfiles
+git clone https://github.com/Choralthings/dotfiles.git ~/.dotfiles
 ```
 
 Choose what you need:
